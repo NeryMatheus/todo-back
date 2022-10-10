@@ -37,7 +37,7 @@ public class Lembrete implements Serializable {
     @Length(min = 3, max = 255, message = "O campo descrição deve ter entre 3 e 255 caracteres")
     private String descricao;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     @NotEmpty(message = "O campo status é obrigatório!!")

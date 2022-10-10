@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nery.todo.domain.Categoria;
 import com.nery.todo.domain.Lembrete;
 import com.nery.todo.exceptions.ObjectNotFoundExceptions;
 import com.nery.todo.repositories.LembreteRepository;
@@ -27,6 +28,13 @@ public class LembreteService {
     public List<Lembrete> findAll(Integer id_cat) {
         cs.findById(id_cat);
         return lr.findLembretes(id_cat);
+    }
+
+    public Lembrete create(Integer id_lemb, Lembrete lem) {
+        lem.setId(null);
+        Categoria cat = cs.findById(id_lemb);
+        lem.setCategoria(cat);
+        return lr.save(lem);
     }
     
 }

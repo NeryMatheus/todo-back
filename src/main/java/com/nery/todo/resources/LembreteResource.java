@@ -1,16 +1,22 @@
 package com.nery.todo.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nery.todo.domain.Lembrete;
 import com.nery.todo.dtos.LembreteDTO;
@@ -37,6 +43,13 @@ public class LembreteResource {
         List<Lembrete> l = ls.findAll(id_cat);
         List<LembreteDTO> lDTO = l.stream().map(x -> new LembreteDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(lDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<Lembrete> create (@RequestParam(value = "categoria", defaultValue = "0") Integer id_lemb, @Valid @RequestBody Lembrete lem ){
+        Lembrete newLemb = ls.create(id_lemb, lem);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/lembretes/{id}").buildAndExpand(newLemb.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }
