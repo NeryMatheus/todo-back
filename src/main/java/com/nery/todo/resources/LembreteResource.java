@@ -9,9 +9,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +52,19 @@ public class LembreteResource {
         Lembrete newLemb = ls.create(id_lemb, lem);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/lembretes/{id}").buildAndExpand(newLemb.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Lembrete> update (@PathVariable Integer id, @Valid @RequestBody Lembrete lem){
+        Lembrete newLem = ls.update(id, lem);
+        return ResponseEntity.ok().body(newLem);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Integer id)
+    {
+        ls.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

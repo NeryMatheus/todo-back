@@ -3,6 +3,8 @@ package com.nery.todo.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,26 @@ public class LembreteService {
         Categoria cat = cs.findById(id_lemb);
         lem.setCategoria(cat);
         return lr.save(lem);
+    }
+
+    public Lembrete update(Integer id, Lembrete lem) {
+        Lembrete newLem = findById(id);
+        updateData(newLem, lem);
+        return lr.save(newLem);
+    }
+
+    private void updateData(Lembrete newLem, Lembrete lem) {
+        newLem.setTitulo(lem.getTitulo());
+        newLem.setAutor(lem.getAutor());
+        newLem.setDescricao(lem.getDescricao());
+        newLem.setData(lem.getData());
+        newLem.setStatus(lem.getStatus());
+
+    }
+
+    public void delete(Integer id) {
+        Lembrete lem = findById(id);
+        lr.delete(lem);
     }
     
 }
