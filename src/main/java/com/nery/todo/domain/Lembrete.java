@@ -38,7 +38,7 @@ public class Lembrete implements Serializable {
     private String descricao;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data;
+    private String data;
 
     @NotEmpty(message = "O campo status é obrigatório!!")
     private String status;
@@ -52,7 +52,7 @@ public class Lembrete implements Serializable {
         super();
     }
 
-    public Lembrete(Integer id, String titulo, String autor, String descricao, LocalDate data, String status, Categoria categoria) {
+    public Lembrete(Integer id, String titulo, String autor, String descricao, String data, String status, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -94,11 +94,11 @@ public class Lembrete implements Serializable {
         this.descricao = descricao;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 

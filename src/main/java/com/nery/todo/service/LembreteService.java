@@ -1,5 +1,6 @@
 package com.nery.todo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,13 @@ public class LembreteService {
         Lembrete lem = findById(id);
         lr.delete(lem);
     }
-    
+
+    public List<Lembrete> findByData(String data) {       
+        return lr.findByData(data);
+    }
+
+    public List<Lembrete> findByStatus(String status) {
+        return lr.findByStatus(status);
+    }
+
 }
