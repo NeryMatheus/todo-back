@@ -1,7 +1,6 @@
 package com.nery.todo.resources;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nery.todo.domain.Lembrete;
 import com.nery.todo.dtos.LembreteDTO;
-import com.nery.todo.repositories.LembreteRepository;
 import com.nery.todo.service.LembreteService;
 
 @CrossOrigin("*")
@@ -33,9 +31,6 @@ public class LembreteResource {
     
     @Autowired
     private LembreteService ls;
-
-    @Autowired
-    private LembreteRepository lr;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Lembrete> findById(@PathVariable Integer id)
@@ -65,18 +60,6 @@ public class LembreteResource {
         List<Lembrete> lem = ls.findByStatus(status);
         return ResponseEntity.ok().body(lem);
     }
-
-    // @GetMapping(value = "/data/{data}")
-    // public List<Lembrete> findByData(@PathVariable("data") String data)
-    // {
-    //     return lr.findByData(data);
-    // }
-
-    // @GetMapping(value = "/status/{status}")
-    // public List<Lembrete> findByStatus(@PathVariable("status") String status)
-    // {
-    //     return lr.findByStatus(status);
-    // }
 
     @PostMapping
     public ResponseEntity<Lembrete> create (@RequestParam(value = "categoria", defaultValue = "0") Integer id_lemb, @Valid @RequestBody Lembrete lem ){
