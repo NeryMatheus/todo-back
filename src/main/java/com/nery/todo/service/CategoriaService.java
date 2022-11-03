@@ -46,7 +46,7 @@ public class CategoriaService {
         try{
             categoriaRepository.deleteById(id);
         }catch (org.springframework.dao.DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Categoria não pode ser excluída pois possui livros associados!!");
+            throw new DataIntegrityViolationException("Categoria não pode ser excluída pois possui lembretes associados!!");
         }
     }
     
